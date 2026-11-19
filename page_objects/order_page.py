@@ -70,7 +70,7 @@ class OrderPage(BasePage):
         self.scroll_element(target_option)
         target_option.click()
 
-    @allure.step("Выбор цвера самоката: {color_name}")
+    @allure.step("Выбор цвета самоката: {color_name}")
     def set_color (self, color_name: str):
         color_locators = {"чёрный жемчуг": OrderPageLocators.COLOR_BLACK,
                           "серая безысходность": OrderPageLocators.COLOR_GREY}
@@ -105,3 +105,35 @@ class OrderPage(BasePage):
         self.confirm_order_popup()
         self.wait_for_success_popup()
         return self.get_success_order_message()
+
+    @allure.step("Клик по логотипу 'Самокат'")
+    def click_scooter_logo(self):
+        self.click_element(OrderPageLocators.SCOOTER_LOGO_ORDER_PAGE)
+
+    @allure.step("Проверка, что мы на главной странице сервиса")
+    def is_on_main_page(self, expected_url):
+        return self.driver.current_url == expected_url
+
+    @allure.step 
+    def click_submit_button(self):
+        self.click_element(OrderPageLocators.SUBMIT_BUTTON)
+
+    @allure.step ("Клик по кнопке 'Заказать' в форме заказа")
+    def click_order_button_in_form(self):
+        self.click_element(OrderPageLocators.ORDER_BUTTON_IN_FORM)
+
+    @allure.step ("Открытие формы заказа из главной страницы")
+    def open_from_main_page(self): 
+        self.click_element(MainPageLocators.HEADER_ORDER_BUTTON)  
+
+    @allure.step ("Клик по кнопке заказать на главной странице")
+    def click_bottom_order_button(self):
+        self.click_element(MainPageLocators.BOTTOM_ORDER_BUTTON)
+
+    @allure.step ("Прокрутка по кнопке заказать на главной странице")
+    def scroll_to_bottom_order_button(self):
+        self.scroll_to_element(MainPageLocators.BOTTOM_ORDER_BUTTON)   
+
+    @allure.step ("Нажатие на лого Яндекс со станицы заказа")
+    def click_yandex_logo(self):
+        self.click_element(MainPageLocators.YANDEX_LOGO)               

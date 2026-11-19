@@ -23,3 +23,5 @@ class OrderPageLocators:
     SUCCESS_ORDER_MESSAGE = (By.XPATH, ".//div[(text() = 'Заказ оформлен')]") # Сообщение об успешном оформлении заказа
 
     ORDER_STATUS_BUTTON = (By.XPATH, './/button[text() = "Посмотреть статус"]') # Кнопка "Посмотреть статус"
+
+    SCOOTER_LOGO_ORDER_PAGE = (By.XPATH, "//*[contains(@class, 'Header_LogoScooter__3lsAR')]")
