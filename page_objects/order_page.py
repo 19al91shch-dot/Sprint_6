@@ -12,12 +12,11 @@ from urls import MAIN_URL, ORDER_URL
 
 
 class OrderPage(BasePage):
+    @allure.step("Открытие страницы")
+    def open(self):
+        self.driver.get(ORDER_URL)
 
-    @allure.step("Переход к форме заказа через кнопку {locator}")
-    def open_from_main_page(self, locator, timeout=10):
-        self._wait_for_element_to_be_clickable(locator, timeout).click()
-        self._wait_for_element(OrderPageLocators.ORDER_FORM)
-
+    
     @allure.step("Клик по станции метро '{station_name}' в выпадающем списке")
     def set_metro_station_by_click(self, station_name):
         input_field = self._wait_for_element_to_be_clickable(OrderPageLocators.METRO_STATION_FIELD)
@@ -110,6 +109,11 @@ class OrderPage(BasePage):
     def click_scooter_logo(self):
         self.click_element(OrderPageLocators.SCOOTER_LOGO_ORDER_PAGE)
 
+    @allure.step("Ожидание появления логотипа Самокат")
+    def wait_for_scooter_logo(self):
+        self._wait_for_element(OrderPageLocators.SCOOTER_LOGO_ORDER_PAGE,
+        timeout=20)     
+
     @allure.step("Проверка, что мы на главной странице сервиса")
     def is_on_main_page(self, expected_url):
         return self.driver.current_url == expected_url
@@ -122,18 +126,3 @@ class OrderPage(BasePage):
     def click_order_button_in_form(self):
         self.click_element(OrderPageLocators.ORDER_BUTTON_IN_FORM)
 
-    @allure.step ("Открытие формы заказа из главной страницы")
-    def open_from_main_page(self): 
-        self.click_element(MainPageLocators.HEADER_ORDER_BUTTON)  
-
-    @allure.step ("Клик по кнопке заказать на главной странице")
-    def click_bottom_order_button(self):
-        self.click_element(MainPageLocators.BOTTOM_ORDER_BUTTON)
-
-    @allure.step ("Прокрутка по кнопке заказать на главной странице")
-    def scroll_to_bottom_order_button(self):
-        self.scroll_to_element(MainPageLocators.BOTTOM_ORDER_BUTTON)   
-
-    @allure.step ("Нажатие на лого Яндекс со станицы заказа")
-    def click_yandex_logo(self):
-        self.click_element(MainPageLocators.YANDEX_LOGO)               

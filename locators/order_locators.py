@@ -24,4 +24,4 @@ class OrderPageLocators:
 
     ORDER_STATUS_BUTTON = (By.XPATH, './/button[text() = "Посмотреть статус"]') # Кнопка "Посмотреть статус"
 
-    SCOOTER_LOGO_ORDER_PAGE = (By.XPATH, "//*[contains(@class, 'Header_LogoScooter__3lsAR')]")
+    SCOOTER_LOGO_ORDER_PAGE = (By.CSS_SELECTOR,"a.Header_LogoScooter__3lsAR")

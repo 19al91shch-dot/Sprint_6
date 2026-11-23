@@ -22,9 +22,10 @@ class TestOrderPage:
     @allure.title("Позитивный сценарий: заказ через верхнюю кнопку 'Заказать'")
     @allure.description("Проверяет заполнение формы и появление всплывающего окна об успешном заказе.")
     def test_order_via_top_button(self, driver, name, surname, address, station_name, phone_number, date_str, days_text, color_name, comment_text):
+        main_page = BasePage(driver)
         order_page = OrderPage(driver)
-        order_page.open()
-        order_page.accept_cookies()
+        main_page.open()
+        main_page.accept_cookies()
         order_page.open_from_main_page()
         order_page.fill_first_order_form(name, surname, address, station_name, phone_number)
         order_page.click_submit_button()
@@ -41,9 +42,10 @@ class TestOrderPage:
     @allure.title("Позитивный сценарий: заказ через нижнюю кнопку 'Заказать'")
     @allure.description("Проверяет заполнение формы и появление всплывающего окна об успешном заказе.")
     def test_order_via_bottom_button(self, driver, name, surname, address, station_name, phone_number, date_str, days_text, color_name, comment_text):
+        main_page = BasePage(driver)
         order_page = OrderPage(driver)
-        order_page.open()
-        order_page.accept_cookies()
+        main_page.open()
+        main_page.accept_cookies()
         order_page.scroll_to_bottom_order_button()
         order_page.click_bottom_order_button()
         order_page.fill_first_order_form(name, surname, address, station_name, phone_number)
@@ -56,17 +58,15 @@ class TestOrderPage:
 
 
     @allure.title("Проверка клика по логотипу 'Самокат'")
-    @allure.description("При клике по логотипу 'Самокат' на главной странице происходит переход на главную страницу сервиса.")
+    @allure.description("При клике по логотипу 'Самокат' на странице заказа происходит переход на главную страницу сервиса.")
     def test_click_scooter_logo(self, driver):
         order_page = OrderPage(driver)
         order_page.open()
         order_page.accept_cookies()
-
-        # Нажимаем логотип "Самокат" на странице заказа
-        
+        order_page.wait_for_scooter_logo()
         order_page.click_scooter_logo()
 
-        assert order_page.is_on_main_page(MAIN_URL), (f"Ожидался переход на {MAIN_URL}, но текущий URL: {order_page.get_current_url()}")
+        assert order_page.is_on_main_page(MAIN_URL)
 
 
     @allure.title("Проверка клика по логотипу 'Яндекс'")

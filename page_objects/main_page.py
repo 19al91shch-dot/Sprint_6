@@ -92,3 +92,19 @@ class BasePage():
     @allure.step("Получение текущего URL")
     def get_current_url(self):
         return self.driver.current_url
+
+    @allure.step ("Открытие формы заказа из главной страницы")
+    def open_from_main_page(self): 
+        self.click_element(MainPageLocators.HEADER_ORDER_BUTTON)  
+
+    @allure.step ("Клик по кнопке заказать на главной странице")
+    def click_bottom_order_button(self):
+        self.click_element(MainPageLocators.BOTTOM_ORDER_BUTTON)
+
+    @allure.step ("Прокрутка по кнопке заказать на главной странице")
+    def scroll_to_bottom_order_button(self):
+        self.scroll_to_element(MainPageLocators.BOTTOM_ORDER_BUTTON)   
+
+    @allure.step ("Нажатие на лого Яндекс со станицы заказа")
+    def click_yandex_logo(self):
+        self.click_element(MainPageLocators.YANDEX_LOGO)               
