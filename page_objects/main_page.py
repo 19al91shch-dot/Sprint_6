@@ -1,5 +1,5 @@
 import allure
-from selenium import webdriver
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -14,8 +14,8 @@ class BasePage():
         self.driver = driver
     
     @allure.step("Открытие страницы")
-    def open(self):
-        self.driver.get(MAIN_URL)
+    def open(self, url):
+        self.driver.get(url)
 
     @allure.step("Ожидание появления элемента с локатором {locator}")
     def _wait_for_element(self, locator, timeout=10):
@@ -93,6 +93,16 @@ class BasePage():
     def get_current_url(self):
         return self.driver.current_url
 
+    @allure.step ("Нажатие на лого Яндекс со станицы заказа")
+    def click_yandex_logo(self):
+        self.click_element(MainPageLocators.YANDEX_LOGO)
+
+class MainPage(BasePage):
+
+    @allure.step("Открытие главной страницы")
+    def open(self):
+        super().open(MAIN_URL)
+
     @allure.step ("Открытие формы заказа из главной страницы")
     def open_from_main_page(self): 
         self.click_element(MainPageLocators.HEADER_ORDER_BUTTON)  
@@ -105,6 +115,4 @@ class BasePage():
     def scroll_to_bottom_order_button(self):
         self.scroll_to_element(MainPageLocators.BOTTOM_ORDER_BUTTON)   
 
-    @allure.step ("Нажатие на лого Яндекс со станицы заказа")
-    def click_yandex_logo(self):
-        self.click_element(MainPageLocators.YANDEX_LOGO)               
+                   

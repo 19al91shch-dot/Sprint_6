@@ -5,10 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from locators.order_locators import OrderPageLocators
-from locators.main_locators import MainPageLocators
 from urls import MAIN_URL, ORDER_URL, DZEN_URL
-from page_objects.main_page import BasePage
+from page_objects.main_page import  MainPage
 from page_objects.order_page import OrderPage
 
 
@@ -22,11 +20,11 @@ class TestOrderPage:
     @allure.title("Позитивный сценарий: заказ через верхнюю кнопку 'Заказать'")
     @allure.description("Проверяет заполнение формы и появление всплывающего окна об успешном заказе.")
     def test_order_via_top_button(self, driver, name, surname, address, station_name, phone_number, date_str, days_text, color_name, comment_text):
-        main_page = BasePage(driver)
+        main_page = MainPage(driver)
         order_page = OrderPage(driver)
         main_page.open()
         main_page.accept_cookies()
-        order_page.open_from_main_page()
+        main_page.open_from_main_page()
         order_page.fill_first_order_form(name, surname, address, station_name, phone_number)
         order_page.click_submit_button()
         order_page.fill_second_order_form(date_str, days_text, color_name, comment_text)
@@ -42,12 +40,13 @@ class TestOrderPage:
     @allure.title("Позитивный сценарий: заказ через нижнюю кнопку 'Заказать'")
     @allure.description("Проверяет заполнение формы и появление всплывающего окна об успешном заказе.")
     def test_order_via_bottom_button(self, driver, name, surname, address, station_name, phone_number, date_str, days_text, color_name, comment_text):
-        main_page = BasePage(driver)
+        main_page = MainPage(driver)
         order_page = OrderPage(driver)
+
         main_page.open()
         main_page.accept_cookies()
-        order_page.scroll_to_bottom_order_button()
-        order_page.click_bottom_order_button()
+        main_page.scroll_to_bottom_order_button()
+        main_page.click_bottom_order_button()
         order_page.fill_first_order_form(name, surname, address, station_name, phone_number)
         order_page.click_submit_button()
         order_page.fill_second_order_form(date_str, days_text, color_name, comment_text)

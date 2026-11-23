@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from  selenium.common.exceptions import TimeoutException
 
 from urls import MAIN_URL
 from locators.faq_locators import FaqPageLocators
@@ -10,6 +11,9 @@ from page_objects.main_page import BasePage
 
 
 class FaqPage(BasePage):
+    @allure.step("Открытие страницы FAQ")
+    def open(self):
+        super().open(MAIN_URL)
 
     @allure.step("Прокрутка до секции FAQ")
     def scroll_to_faq_section(self):

@@ -6,15 +6,14 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
 from locators.order_locators import OrderPageLocators
-from locators.main_locators import MainPageLocators
 from page_objects.main_page import BasePage
 from urls import MAIN_URL, ORDER_URL
 
 
 class OrderPage(BasePage):
-    @allure.step("Открытие страницы")
+    @allure.step("Открытие страницы заказа")
     def open(self):
-        self.driver.get(ORDER_URL)
+        super().open(ORDER_URL)
 
     
     @allure.step("Клик по станции метро '{station_name}' в выпадающем списке")
@@ -116,7 +115,7 @@ class OrderPage(BasePage):
 
     @allure.step("Проверка, что мы на главной странице сервиса")
     def is_on_main_page(self, expected_url):
-        return self.driver.current_url == expected_url
+        return self.get_current_url() == expected_url
 
     @allure.step 
     def click_submit_button(self):
